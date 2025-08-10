@@ -25,10 +25,20 @@ An AI-powered legal assistant for Abu Dhabi Global Market (ADGM) document compli
 ```
 ADGM Corporate Agent
 ├── FastAPI Backend (Python)
-├── Gemini 2.0 Flash API (AI Analysis)
-├── ChromaDB (Vector Knowledge Base)
-├── Document Processing (python-docx, mammoth)
-└── REST API (JSON responses)
+│   ├── Document Processing & Analysis Pipeline
+│   ├── Async Background Tasks
+│   └── REST API Endpoints
+├── Gemini 2.0 Flash API
+│   ├── AI-Powered Analysis
+│   └── Intelligent Document Review
+├── ChromaDB Knowledge Base
+│   ├── Vector Search
+│   ├── Document Embeddings
+│   └── Contextual Retrieval
+└── Enhanced Validation Engine
+    ├── ADGM Compliance Rules
+    ├── Document Structure Analysis
+    └── Smart Recommendations
 ```
 
 ## ⚡ Quick Start
@@ -192,51 +202,61 @@ Response:
 ```
 adgm-corporate-agent/
 ├── app/
-│   ├── main.py                 # FastAPI application
-│   ├── models.py              # Pydantic models
+│   ├── main.py                 # FastAPI application with async support
+│   ├── models.py              # Pydantic data models
 │   ├── services/
-│   │   ├── document_parser.py  # Document processing
-│   │   ├── gemini_analyzer.py  # AI analysis with Gemini
-│   │   └── adgm_validator.py   # ADGM compliance logic
+│   │   ├── document_parser.py  # Enhanced document processing
+│   │   ├── gemini_analyzer.py  # Gemini 2.0 integration
+│   │   ├── adgm_validator.py   # Advanced compliance logic
+│   │   ├── adgm_knowledge_extractor.py # Knowledge base management
+│   │   └── document_parser.py  # Document structure analysis
 │   └── utils/
-│       ├── file_handler.py     # File operations
-│       └── report_generator.py # Report generation
+│       ├── file_handler.py     # File operations & validation
+│       └── report_generator.py # Enhanced report generation
 ├── data/
-│   ├── chroma_db/             # Vector database
-│   └── adgm_knowledge/        # ADGM regulations
-├── uploads/                   # Uploaded documents
-├── outputs/                   # Processed documents
-├── config.py                  # Configuration
-├── requirements.txt           # Dependencies
-├── run.py                    # Startup script
-├── cli_client.py             # CLI testing tool
-└── README.md                 # This file
+│   ├── chroma_db/             # Vector store & embeddings
+│   └── adgm_knowledge/        # ADGM regulations & templates
+├── scripts/
+│   └── populate_knowledge.py  # Knowledge base setup
+├── uploads/                   # Document upload directory
+├── outputs/                   # Processed documents & reports
+├── config.py                  # Enhanced configuration
+├── requirements.txt           # Project dependencies
+├── run.py                    # Advanced startup script
+├── cli_client.py             # CLI testing & automation
+└── README.md                 # Documentation
 ```
 
 ## 🔍 Key Components
 
 ### Document Parser
-- Extracts text and structure from .docx files
-- Identifies document types automatically
-- Preserves formatting for markup insertion
+- Advanced text and structure extraction from .docx files
+- Automatic document type classification
+- Intelligent section recognition
+- Format-preserving markup capabilities
 
 ### Gemini Analyzer
-- Uses Gemini 2.0 Flash for AI analysis
-- Structured prompts for different validation types
-- Rate limiting and error handling
-- JSON-mode responses for reliability
+- Integration with Gemini 2.0 Flash for high-speed analysis
+- Context-aware structured prompts
+- Smart rate limiting and error handling
+- Reliable JSON-mode responses with fallback options
 
 ### ADGM Validator
-- ChromaDB vector knowledge base
-- ADGM-specific compliance rules
-- Section-by-section validation
-- Scoring and recommendations
+- Enhanced ChromaDB vector knowledge base
+- Comprehensive ADGM compliance ruleset
+- Multi-level validation pipeline
+  - Structure validation
+  - Content compliance
+  - Cross-reference checking
+- Contextual recommendations
+- Intelligent scoring system
 
 ### Report Generator
-- Executive summaries
-- Detailed JSON reports
-- Prioritized recommendations
-- Export capabilities
+- Executive summaries with priority highlights
+- Structured JSON reports with detailed findings
+- Context-aware recommendations
+- Multiple export formats
+- Smart document markup with inline suggestions
 
 ## ⚙️ Configuration Options
 
