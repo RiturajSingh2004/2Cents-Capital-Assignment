@@ -203,16 +203,15 @@ Response:
 adgm-corporate-agent/
 ├── app/
 │   ├── main.py                 # FastAPI application with async support
-│   ├── models.py              # Pydantic data models
+│   ├── models.py              # Comprehensive Pydantic models
 │   ├── services/
-│   │   ├── document_parser.py  # Enhanced document processing
-│   │   ├── gemini_analyzer.py  # Gemini 2.0 integration
-│   │   ├── adgm_validator.py   # Advanced compliance logic
-│   │   ├── adgm_knowledge_extractor.py # Knowledge base management
-│   │   └── document_parser.py  # Document structure analysis
+│   │   ├── document_parser.py  # Document processing & structure analysis
+│   │   ├── gemini_analyzer.py  # Gemini AI integration & rate limiting
+│   │   ├── adgm_validator.py   # ADGM compliance validation engine
+│   │   └── adgm_knowledge_extractor.py # Knowledge base & RAG system
 │   └── utils/
-│       ├── file_handler.py     # File operations & validation
-│       └── report_generator.py # Enhanced report generation
+│       ├── file_handler.py     # File operations & safety checks
+│       └── report_generator.py # Report generation & formatting
 ├── data/
 │   ├── chroma_db/             # Vector store & embeddings
 │   └── adgm_knowledge/        # ADGM regulations & templates
@@ -229,34 +228,55 @@ adgm-corporate-agent/
 
 ## 🔍 Key Components
 
+### Models (models.py)
+- Comprehensive Pydantic data models
+- Strong type safety with validation
+- Support for all document types and operations:
+  - Document analysis and flags
+  - Compliance checks and scoring
+  - Knowledge base operations
+  - API requests and responses
+- Extensible enum types for categorization
+
 ### Document Parser
 - Advanced text and structure extraction from .docx files
-- Automatic document type classification
-- Intelligent section recognition
-- Format-preserving markup capabilities
+- Automatic document type classification using pattern matching
+- Intelligent section recognition and validation
+- Format-preserving markup with comment support
+- File safety checks and size validation
 
 ### Gemini Analyzer
 - Integration with Gemini 2.0 Flash for high-speed analysis
-- Context-aware structured prompts
-- Smart rate limiting and error handling
+- Context-aware structured prompts with retry logic
+- Smart rate limiting (10 requests/minute) and error handling
 - Reliable JSON-mode responses with fallback options
+- Async processing for better performance
 
 ### ADGM Validator
-- Enhanced ChromaDB vector knowledge base
-- Comprehensive ADGM compliance ruleset
+- Enhanced ChromaDB vector knowledge base integration
+- RAG-powered document validation
 - Multi-level validation pipeline
-  - Structure validation
-  - Content compliance
-  - Cross-reference checking
-- Contextual recommendations
-- Intelligent scoring system
+  - Structure validation against templates
+  - Content compliance with ADGM rules
+  - Cross-reference checking with knowledge base
+- Smart recommendations with context
+- Configurable scoring system
+
+### Knowledge Base Management
+- Automated knowledge extraction
+- Support for multiple document sources:
+  - Web scraping with rate limiting
+  - PDF document processing
+  - DOCX template analysis
+- Efficient chunking and embedding
+- Vector search capabilities
 
 ### Report Generator
 - Executive summaries with priority highlights
-- Structured JSON reports with detailed findings
-- Context-aware recommendations
-- Multiple export formats
-- Smart document markup with inline suggestions
+- Detailed JSON reports with multiple sections
+- Smart recommendations based on violations
+- Multiple export formats with templating
+- Document markup with inline suggestions
 
 ## ⚙️ Configuration Options
 
@@ -266,19 +286,33 @@ adgm-corporate-agent/
 # API Configuration
 GEMINI_API_KEY=your_api_key
 GEMINI_MODEL=gemini-2.0-flash-exp
+MAX_TOKENS_PER_REQUEST=8000
 
 # File Settings
 MAX_FILE_SIZE=52428800        # 50MB max
+ALLOWED_FILE_TYPES=[".docx"]  # Supported file types
 UPLOAD_DIR=uploads
 OUTPUT_DIR=outputs
+DATA_DIR=data
 
 # Processing Settings
 MAX_CONCURRENT_ANALYSES=5
-MAX_TOKENS_PER_REQUEST=8000
 
-# Database Settings
+# Knowledge Base Settings
 CHROMA_DB_PATH=data/chroma_db
 ADGM_KNOWLEDGE_PATH=data/adgm_knowledge
+
+# Web Scraping Configuration
+WEB_SCRAPING_ENABLED=true
+WEB_SCRAPING_TIMEOUT=30
+RATE_LIMIT_DELAY=1
+
+# Document Processing
+PDF_PROCESSING_ENABLED=true
+PDF_MAX_SIZE_MB=50
+DOCX_MAX_SIZE_MB=20
+CHUNK_SIZE=1000
+CHUNK_OVERLAP=200
 ```
 
 ### Document Type Configuration
@@ -307,11 +341,13 @@ The system includes comprehensive error handling:
 
 ## 📈 Performance
 
-- **Gemini 2.0 Flash**: Sub-second AI analysis
-- **Async processing**: Non-blocking operations
-- **Memory efficient**: Streams large documents
-- **Rate limiting**: Respects API quotas
-- **Concurrent processing**: Multiple documents simultaneously
+- **Gemini 2.0 Flash**: Sub-second AI analysis with rate limiting
+- **Async processing**: Non-blocking operations with background tasks
+- **Memory efficient**: Streams large documents with configurable chunk sizes
+- **Rate limiting**: Smart API quotas (10 requests/minute)
+- **Concurrent processing**: Up to 5 documents simultaneously
+- **Vector Search**: Fast document retrieval with ChromaDB
+- **Smart Caching**: Knowledge base with efficient embeddings
 
 ## 🔒 Security Considerations
 
